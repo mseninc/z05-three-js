@@ -1,14 +1,13 @@
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { TextureLoader } from 'three';
+import { useLoader } from '@react-three/fiber';
 
-export const loadFbxModel = async () => {
-  const loader = new FBXLoader();
-  const model = await loader.loadAsync("model/Sakabambas.fbx");
+export const useFbxModel = (path) => {
+  const model = useLoader(FBXLoader, path);
   return model;
 };
 
-export const loadMainTexture = async () => {
-  const loader = new TextureLoader();
-  const texture = await loader.loadAsync("model/Sakabambas.png");
+export const useMainTexture = (path) => {
+  const texture = useLoader(TextureLoader, path);
   return texture;
 };
