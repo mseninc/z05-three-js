@@ -17,6 +17,7 @@ function App() {
           <ambientLight />
           <Sakabambas model={model} texture={texture} position={[0,0,0]} />
           <Environment preset="forest" background />
+          <Sakabambas model={model} texture={texture} position={[0,5,0]} />
         </Suspense>
       </Canvas>
     </div>
