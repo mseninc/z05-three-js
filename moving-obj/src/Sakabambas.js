@@ -1,32 +1,37 @@
-import { useLoader } from "@react-three/fiber";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { TextureLoader } from "three";
-import * as THREE from "three";
+import { useRef, useEffect } from 'react';
+import { useThree } from '@react-three/fiber';
+import * as THREE from 'three';
 
-// モデルテクスチャ経路
-const texture = "model/Sakabambas.png";
+const Sakabambas = ({ model, texture, position }) => {
+  const modelRef = useRef();
+  const { scene } = useThree();
 
-// モデル元々オブジェクトにするのが望ましい
-const Sakabambas = () => {
-  // モデル読み込み  
-  const fbx = useLoader(FBXLoader, "model/Sakabambas.fbx");
-  // テクスチャ読み込み
-  const [colorMap] = useLoader(TextureLoader, [texture]);
+  useEffect(() => {
+    const material = new THREE.MeshStandardMaterial({
+      map: texture
+    });
 
-    // テクスチャをマテリアルに設定
-  const material = new THREE.MeshStandardMaterial({
-    map: colorMap
-  });
+    model.traverse((child) => {
+      if (child.isMesh) {
+        child.material = material;
+      }
+    });
 
-    // モデルのマテリアルを設定
-  fbx.traverse((child) => {
-    if (child.isMesh) {
-      child.material = material;
+    modelRef.current = model;
+    scene.add(model);
+
+    return () => {
+      scene.remove(model);
+    };
+  }, [model, texture, scene]);
+
+  useEffect(() => {
+    if (modelRef.current) {
+      modelRef.current.position.set(...position);
     }
-  });
+  }, [position]);
 
-    // モデルを返す
-  return <primitive object={fbx} scale={1} />;
+  return null;
 };
 
 export default Sakabambas;
