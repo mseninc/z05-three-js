@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { TextureLoader } from 'three';
 import { useLoader } from '@react-three/fiber';
@@ -9,5 +10,6 @@ export const useFbxModel = (path) => {
 
 export const useMainTexture = (path) => {
   const texture = useLoader(TextureLoader, path);
+
   return texture;
 };

@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import * as THREE from 'three';
 
 export function useMouseRotation() {
   const rotateSpeed = 0.005;
@@ -39,7 +40,8 @@ export function useMouseRotation() {
   }, []);
 
   return (camera) => {
-    camera.rotation.y -= rotation.y;
-    camera.rotation.x -= rotation.x;
+    camera.rotateOnAxis(new THREE.Vector3(0, 1, 0), -rotation.y);
+
+    camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -rotation.x);
   };
 }

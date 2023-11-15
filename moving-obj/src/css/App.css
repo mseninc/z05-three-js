@@ -1,0 +1,17 @@
+/* App.css */
+
+body {
+    margin: 0;
+  }
+
+  .main {
+    display: flex; /* Flexbox layout */
+    height: 100vh; /* Make it full height */
+  }
+  
+  
+  .canvas-container {
+    flex: 5; /* Take 5 portions of the space, making it larger than the sidebar */
+    position: relative; /* Needed for Canvas to be positioned correctly */
+  }
+  
