@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { TextureLoader } from 'three';
 import { useLoader } from '@react-three/fiber';

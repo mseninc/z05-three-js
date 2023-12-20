@@ -1,8 +1,8 @@
-// useKeyboardMovement.js
+// useKeyboard.js
 import { useRef, useEffect } from 'react';
 
-export function useKeyboardMovement() {
-  const moveDirection = useRef({ left: 0, forward: 0, right: 0, backward: 0 });
+export function useKeyboard() {
+    const moveDirection = useRef({ left: 0, forward: 0, right: 0, backward: 0 });
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -31,7 +31,7 @@ export function useKeyboardMovement() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, []);
+  }, [moveDirection]);
 
   return moveDirection.current;
 }

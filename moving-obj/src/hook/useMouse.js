@@ -1,31 +1,42 @@
-import { useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
+import { useRef, useEffect } from 'react';
 
-export function useMouseRotation() {
-  const rotateSpeed = 0.005;
-  const isDragging = useRef(false);
+export function useMouse() {
+  const isLeftDown = useRef(false);
+  const isRightDown = useRef(false);
+
   const prevMousePos = useRef({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const mouseDelta = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseDown = (e) => {
-      isDragging.current = true;
+      if (e.button === 0)
+      {
+        isLeftDown(true);
+      }  
+      else if(e.button === 2)
+      {
+        isRightDown(true);
+      }
       prevMousePos.current = { x: e.clientX, y: e.clientY };
     };
 
     const handleMouseMove = (e) => {
-      if (isDragging.current) {
+      if (isLeftDown) {
         const deltaX = e.clientX - prevMousePos.current.x;
         const deltaY = e.clientY - prevMousePos.current.y;
         prevMousePos.current = { x: e.clientX, y: e.clientY };
-        setRotation({ x: deltaY * rotateSpeed, y: deltaX * rotateSpeed });
+        mouseDelta({ x: deltaY, y: deltaX });
       }
     };
 
-    const handleMouseUp = () => {
-      if (isDragging.current) {
-        isDragging.current = false;
-        setRotation({ x: 0, y: 0 });
+    const handleMouseUp = (e) => {
+      if (e.button === 0)
+      {
+        isLeftDown(false);
+      }  
+      else if(e.button === 2)
+      {
+        isRightDown(false);
       }
     };
 
@@ -39,9 +50,7 @@ export function useMouseRotation() {
     };
   }, []);
 
-  return (camera) => {
-    camera.rotateOnAxis(new THREE.Vector3(0, 1, 0), -rotation.y);
-
-    camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -rotation.x);
+  return () => {
+    return { isLeftDown, isRightDown, mouseDelta };
   };
 }

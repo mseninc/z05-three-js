@@ -4,9 +4,25 @@ body {
     margin: 0;
   }
 
-  .main {
-    display: flex; /* Flexbox layout */
-    height: 100vh; /* Make it full height */
+  .topMenu{
+    height: 50px;
+  }
+
+  .sideBar {
+    width: 200px;
+    height: 100%;
+    background-color: gray;
+  }
+
+  .sceneDiv
+  {
+    width: 130vh;
+  }
+  
+  .mainDiv {
+    display: flex;
+    flex-direction: row;
+    height: 80vh;
   }
   
   
